@@ -1,3 +1,4 @@
+![CI](https://github.com/yassinlhm/almacen-papeleria-api/actions/workflows/ci.yml/badge.svg)
 # almacen-papeleria-api
 
 API REST del almacén de una papelería, hecha con Spring Boot (Java 21), Spring Data JPA y PostgreSQL.
