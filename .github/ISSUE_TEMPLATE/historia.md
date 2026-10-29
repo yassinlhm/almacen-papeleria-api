@@ -1,0 +1,13 @@
+---
+name: Historia de usuario
+about: Funcionalidad vista desde el cliente
+title: "[Historia] "
+labels: historia
+---
+
+**Como** ...
+**quiero** ...
+**para** ...
+
+### Criterios de aceptación
+- [ ] ...
