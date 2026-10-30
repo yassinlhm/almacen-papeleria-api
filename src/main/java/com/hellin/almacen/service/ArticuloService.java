@@ -33,26 +33,28 @@ public class ArticuloService {
         return repositorio.findAll();
     }
 
+ /**
+     * Busca un artículo por su identificador y devuelve solo sus datos básicos:
+     * id, nombre y stock. Si el stock es 0, añade la clave {@code mensaje} con el
+     * valor {@code "Agotado"}.
+     *
+     * @param id identificador del artículo
+     * @return un {@link Optional} con el mapa de datos básicos, o vacío si el
+     *         artículo no existe
+     */
     public Optional<Map<String, Object>> buscarBasico(Integer id) {
-
-    Optional<Articulo> resultado = repositorio.findById(id);
-
-    if (resultado.isEmpty()) {
-        return Optional.empty();
+        Optional<Articulo> resultado = repositorio.findById(id);
+        if (resultado.isEmpty()) {
+            return Optional.empty();
+        }
+        Articulo articulo = resultado.get();
+        Map<String, Object> datos = new LinkedHashMap<>();
+        datos.put("id", articulo.getId());
+        datos.put("nombre", articulo.getNombre());
+        datos.put("stock", articulo.getStock());
+        if (articulo.getStock() == 0) {
+            datos.put("mensaje", "Agotado");
+        }
+        return Optional.of(datos);
     }
-
-    Articulo articulo = resultado.get();
-
-    Map<String, Object> datos = new LinkedHashMap<>();
-
-    datos.put("id", articulo.getId());
-    datos.put("nombre", articulo.getNombre());
-    datos.put("stock", articulo.getStock());
-
-    if (articulo.getStock() == 0) {
-        datos.put("mensaje", "Agotado");
-    }
-
-    return Optional.of(datos);
-}
 }
