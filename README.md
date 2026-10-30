@@ -1,5 +1,6 @@
-![CI](https://github.com/yassinlhm/almacen-papeleria-api/actions/workflows/ci.yml/badge.svg)
 # almacen-papeleria-api
+
+![CI](https://github.com/yassinlhm/almacen-papeleria-api/actions/workflows/ci.yml/badge.svg)
 
 API REST del almacén de una papelería, hecha con Spring Boot (Java 21), Spring Data JPA y PostgreSQL.
 Permite consultar el catálogo de artículos y los datos básicos de cada uno, indicando si está agotado.
@@ -53,19 +54,16 @@ Respuesta `404 Not Found` sin cuerpo.
 
 1. Clona el repositorio y entra en la carpeta:
    ```bash
-   git clone <url-del-repositorio>
+   git clone https://github.com/yassinlhm/almacen-papeleria-api.git
    cd almacen-papeleria-api
    ```
-2. Si falta `pom.xml`/`mvnw`, genera el esqueleto en https://start.spring.io (Maven, Java 21,
-   group `com.hellin`, artifact `almacen`, dependencias Spring Web, Spring Data JPA, PostgreSQL Driver
-   y H2) y copia encima el contenido de este proyecto.
-3. Arranca PostgreSQL con **una** de estas opciones:
+2. Arranca PostgreSQL con **una** de estas opciones:
    - **Docker:**
      ```bash
      docker run --name pg-almacen -e POSTGRES_USER=almacen -e POSTGRES_PASSWORD=cambiame -e POSTGRES_DB=almacen -p 5432:5432 -d postgres:17
      ```
    - **PostgreSQL instalado** (https://www.postgresql.org/download/): crea el usuario `almacen` y la base de datos `almacen`.
-4. Define la contraseña como variable de entorno (nunca se guarda en el código) y ejecuta:
+3. Define la contraseña como variable de entorno (nunca se guarda en el código) y ejecuta:
    ```bash
    # Linux / macOS / Git Bash
    export DB_PASSWORD=cambiame
@@ -77,7 +75,7 @@ Respuesta `404 Not Found` sin cuerpo.
    .\mvnw spring-boot:run
    ```
    Variables opcionales: `DB_HOST` (por defecto `localhost`), `DB_NAME` y `DB_USER` (por defecto `almacen`).
-5. Prueba la API:
+4. Prueba la API:
    ```bash
    curl http://localhost:8080/api/articulos
    curl http://localhost:8080/api/articulos/3/basico
@@ -119,17 +117,19 @@ src/main/resources/  application*.properties, schema.sql, data.sql
 
 ## Equipo y flujo de trabajo
 
-| Integrante | Rol |
-|------------|-----|
-| _Nombre 1_ | _Planificación_ |
-| _Nombre 2_ | _Documentación_ |
-| _Nombre 3_ | _Integración del código_ |
+| Integrante | Usuario de GitHub | Rol | Tareas principales |
+|------------|-------------------|-----|--------------------|
+| Yassin Lahmidi Moussaoui | [@yassinlhm](https://github.com/yassinlhm) | A · Planificación | Repositorio, issues, Project, `listarTodos` (#3), README (#11) y versión v1.0.0 |
+| Oussama Htit | [@OussamaHtit](https://github.com/OussamaHtit) | B · Integración continua | Endpoint de listado (#4), CI con GitHub Actions (#12) y wiki *Endpoints* (#8) |
+| Ilyas Benbraitit Karim | [@Ilyas2914](https://github.com/Ilyas2914) | C · Desarrollo y documentación | `buscarBasico` (#5), endpoint de datos básicos (#6) y wiki *Modelo de datos* y *Guía de uso* (#9, #10) |
 
-- Cada tarea es una **Issue** y se planifica en **Projects**; la documentación funcional está en la **wiki**.
-- Una rama por tarea (`feat/...`, `docs/...`) y *Pull Request* revisado por otra persona antes de fusionar a `main`.
-- Commits en formato convencional referenciando la issue, p. ej. `feat: añade endpoint de datos básicos (#4)`.
-- Los roles rotan entre prácticas.
+- Cada tarea es una **issue** con su estimación, dentro del milestone *Sprint 1*, y se sigue en el **Project** del equipo. La documentación funcional está en la **wiki**.
+- Ramas: `main` tiene solo versiones estables; `develop` es la rama de integración. Cada tarea se hace en su propia rama `feature/<nº issue>-<descripcion>` creada desde `develop`.
+- Cada rama se sube con una *Pull Request* hacia `develop` que lleva `Closes #<nº>` y la revisa y aprueba otro compañero antes de fusionarla.
+- `develop` y `main` están protegidas: no se puede fusionar si el check `compilar` del CI no sale en verde.
+- Commits en formato convencional y con la issue, por ejemplo `feat: añade el endpoint de datos básicos con 404 (#6)`.
+- Al terminar el sprint se pasa `develop` a `main` con una PR y se publica la versión con un tag y una *Release*.
 
 ## Uso de IA
 
-_Declarar aquí qué se ha consultado a una IA (comandos, errores…). Nunca se introducen contraseñas ni claves._
+Hemos usado un asistente de IA (Claude) como apoyo para aprender y resolver dudas: qué comandos de Git usar en cada paso, cómo configurar Git solo para este repositorio, errores al instalar Java 21 y al hacer `push` con el token, el formato del Javadoc y la sintaxis del workflow de GitHub Actions. Todo lo que nos sugería lo hemos probado y revisado nosotros antes de subirlo. Nunca hemos pegado contraseñas, tokens ni claves en la IA.
